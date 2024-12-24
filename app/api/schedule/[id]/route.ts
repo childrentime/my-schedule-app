@@ -2,10 +2,8 @@ import clientPromise from "@/lib/mongodb"
 import { ObjectId } from "mongodb"
 import { NextRequest, NextResponse } from "next/server"
 
-export async function POST(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function POST(req: NextRequest, props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   try {
     const client = await clientPromise
     const db = client.db("scheduleDB")
